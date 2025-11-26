@@ -5,6 +5,7 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/zawmtun/nightingale/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/zawmtun/nightingale/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of nightingale is to provide an exemplary R package for
