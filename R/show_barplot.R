@@ -24,13 +24,9 @@
 #' show_barplot(metrics = c("disease", "other", "wounds", "total"))
 #'
 #' @export
-show_barplot <- function(
-    mortality_data=mortality,
-    metrics=c(
-      "disease",
-  'other',
-          "wounds"),
-    highlight_intervention=TRUE) {
+show_barplot <- function(mortality_data = mortality,
+                         metrics = c("disease", 'other', "wounds"),
+                         highlight_intervention = TRUE) {
   # Inspired by:
   # https://www.datawrapper.de/blog/recreating-nightingale-rose-chart
 
@@ -41,18 +37,10 @@ show_barplot <- function(
     dplyr::select(date, tidyselect::all_of(metrics)) |>
     tidyr::pivot_longer(-date, names_to = "cause_of_death", values_to = "n_deaths") |>
     ggplot2::ggplot() +
-    ggplot2::aes(
-      x = date,
-      y = n_deaths,
-      fill = cause_of_death
-    ) +
+    ggplot2::aes(x = date, y = n_deaths, fill = cause_of_death) +
     ggplot2::geom_col(position = "dodge") +
     ggplot2::theme_classic() +
-    ggplot2::labs(
-      x = "",
-      y = "Deaths per 1000 soldiers per year",
-      fill = "Cause of Death"
-    ) +
+    ggplot2::labs(x = "", y = "Deaths per 1000 soldiers per year", fill = "Cause of Death") +
     ggplot2::scale_x_date(
       date_breaks = "4 months",
       labels = scales::label_date(format = "%m/%Y", locale = NULL)
@@ -61,7 +49,8 @@ show_barplot <- function(
   if (highlight_intervention) {
     plot <- plot +
       # Nightingale's improvements were implemented in Feb / March 1855
-      ggplot2::geom_vline(xintercept = as.POSIXct("1855-02-15"), linetype = "dashed")
+      ggplot2::geom_vline(xintercept = as.POSIXct("1855-02-15"),
+                          linetype = "dashed")
   }
   return(plot)
 }
