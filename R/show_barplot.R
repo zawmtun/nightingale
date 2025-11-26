@@ -25,7 +25,7 @@
 #'
 #' @export
 show_barplot <- function(mortality_data = mortality,
-                         metrics = c("disease", 'other', "wounds"),
+                         metrics = c("disease", "other", "wounds"),
                          highlight_intervention = TRUE) {
   # Inspired by:
   # https://www.datawrapper.de/blog/recreating-nightingale-rose-chart

@@ -26,36 +26,38 @@
 #' }
 #'
 #' @export
-show_shiny_app <- function(mortality_data=mortality) {
+show_shiny_app <- function(mortality_data = mortality) {
   ui <- shiny::fluidPage(
-  shiny::titlePanel("Mortality Data Dashboard"),
-  shiny::sidebarLayout(
-  shiny::sidebarPanel(
-  shiny::selectInput(
-    "selected_causes",
-    "Select Causes of Death:",
-        choices = colnames(mortality)[-1], # Exclude the 'date' column
-    selected = colnames(mortality)[-1], size = 4,
-    selectize = FALSE,
-  multiple = TRUE
-  ),
-  shiny::checkboxInput("show_vline",
-    "Show date of Nightingale's Improvements", value = TRUE
-  )
-  ),
-  shiny::mainPanel(
-  shiny::plotOutput("barplot")
-  )
-  )
+    shiny::titlePanel("Mortality Data Dashboard"),
+    shiny::sidebarLayout(
+      shiny::sidebarPanel(
+        shiny::selectInput(
+          "selected_causes",
+          "Select Causes of Death:",
+          choices = colnames(mortality)[-1],
+          # Exclude the 'date' column
+          selected = colnames(mortality)[-1],
+          size = 4,
+          selectize = FALSE,
+          multiple = TRUE
+        ),
+        shiny::checkboxInput(
+          "show_vline",
+          "Show date of Nightingale's Improvements",
+          value = TRUE
+        )
+      ),
+      shiny::mainPanel(shiny::plotOutput("barplot"))
+    )
   )
 
   server <- function(input, output, session) {
     output$barplot <- shiny::renderPlot({
-    show_barplot(
-    mortality_data = mortality,
-  metrics = input$selected_causes,
-    highlight_intervention = input$show_vline
-    )
+      show_barplot(
+        mortality_data = mortality,
+        metrics = input$selected_causes,
+        highlight_intervention = input$show_vline
+      )
     })
   }
 
